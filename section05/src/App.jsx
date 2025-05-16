@@ -1,22 +1,24 @@
 import './App.css';
-import Button from './components/button';
+import { useState } from 'react';
 
 const App = () => {
-  const buttonProps = {
-    text: '메일',
-    color: 'red',
-    a: 1,
-    b: 2,
-    c: 3,
-  };
+  // state 초기값
+  // state를 변화시키는 함수
+  const [count, setCount] = useState(0);
+  const [light, setLight] = useState('OFF');
 
   return (
     <div>
-      <Button {...buttonProps} />
-      <Button text="카페" />
-      <Button text="블로그">
-        <div>자식 요소</div>
-      </Button>
+      <div>
+        <h1>{light}</h1>
+        <button onClick={() => setLight(light === 'ON' ? 'OFF' : 'ON')}>
+          {light === 'ON' ? '끄기' : '켜기'}
+        </button>
+      </div>
+      <div>
+        <h1>{count}</h1>
+        <button onClick={() => setCount((prev) => prev + 1)}>+</button>
+      </div>
     </div>
   );
 };
