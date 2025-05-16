@@ -10,14 +10,21 @@
 // 4. 최상위 태그는 반드시 하나여야만 한다.
 // <></> 사용 가능
 
-const Main = () => {
-  const number = 10;
+import './Main.css';
 
+const Main = () => {
+  const user = {
+    name: '박민조',
+    isLogin: true,
+  };
   return (
-    <main>
-      <h1>Main</h1>
-      <h2>{number}</h2>
-    </main>
+    <>
+      {user.isLogin ? (
+        <div className="logout">로그아웃</div>
+      ) : (
+        <div>로그인</div>
+      )}
+    </>
   );
 };
 
