@@ -1,0 +1,16 @@
+body {
+  padding: 20px;
+}
+
+.app {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.app > section {
+  background-color: #f2f3f5;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
