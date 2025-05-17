@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const Register = () => {
   // 여러 개의 state를 하나의 객체로 묶어서 관리할 수 있음
@@ -9,15 +9,28 @@ const Register = () => {
     bio: '',
   });
 
+  const countRef = useRef(0);
+  const inputRef = useRef();
+
   const handleChange = (event) => {
+    countRef.current++;
+
     const { name, value } = event.target;
     setInput((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = () => {
+    if (input.name === '') {
+      // 이름을 입력하는 DOM 요소에 포커스 주기
+      inputRef.current.focus();
+    }
+  };
+
   return (
-    <form>
+    <div>
       <div>
         <input
+          ref={inputRef}
           name="name"
           type="text"
           placeholder="이름"
@@ -48,7 +61,10 @@ const Register = () => {
           value={input.bio}
         ></textarea>
       </div>
-    </form>
+      <button type="submit" onClick={handleSubmit}>
+        제출
+      </button>
+    </div>
   );
 };
 
