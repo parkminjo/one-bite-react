@@ -11,8 +11,8 @@ const App = () => {
   return (
     <main className="app">
       <h1>Simple Counter</h1>
-      <Viewer />
-      <Controller />
+      <Viewer count={count} />
+      <Controller setCount={setCount} />
     </main>
   );
 };
