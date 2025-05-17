@@ -1,42 +1,40 @@
 import { useState } from 'react';
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [birth, setBirth] = useState('');
-  const [country, setCountry] = useState('');
-  const [bio, setBio] = useState('');
+  // 여러 개의 state를 하나의 객체로 묶어서 관리할 수 있음
+  const [input, setInput] = useState({
+    name: '',
+    birth: '',
+    country: '',
+    bio: '',
+  });
 
-  const handleChangeName = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleChangeBirth = (event) => {
-    setBirth(event.target.value);
-  };
-
-  const handleChangeCountry = (event) => {
-    setCountry(event.target.value);
-  };
-
-  const handleChangeBio = (event) => {
-    setBio(event.target.value);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInput((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <form>
       <div>
         <input
+          name="name"
           type="text"
           placeholder="이름"
-          onChange={handleChangeName}
-          value={name}
+          onChange={handleChange}
+          value={input.name}
         />
       </div>
       <div>
-        <input type="date" onChange={handleChangeBirth} value={birth} />
+        <input
+          name="birth"
+          type="date"
+          onChange={handleChange}
+          value={input.birth}
+        />
       </div>
       <div>
-        <select onChange={handleChangeCountry} value={country}>
+        <select name="country" onChange={handleChange} value={input.country}>
           <option>국적을 선택해주세요</option>
           <option value="kr">한국</option>
           <option value="us">미국</option>
@@ -44,7 +42,11 @@ const Register = () => {
         </select>
       </div>
       <div>
-        <textarea onChange={handleChangeBio} value={bio}></textarea>
+        <textarea
+          name="bio"
+          onChange={handleChange}
+          value={input.bio}
+        ></textarea>
       </div>
     </form>
   );
