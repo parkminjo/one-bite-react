@@ -1,12 +1,8 @@
 import './App.css';
-import Register from './components/Register';
+import HookExam from './components/HookExam';
 
 const App = () => {
-  return (
-    <div>
-      <Register />
-    </div>
-  );
+  return <HookExam />;
 };
 
 export default App;
