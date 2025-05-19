@@ -31,11 +31,11 @@ const TodoList = ({ todos }) => {
         value={search}
         onChange={handleChangeSearch}
       />
-      <ul className="todo-list-wrapper">
+      <div className="todo-list-wrapper">
         {filteredTodos.map((todo) => {
           return <TodoItem key={todo.id} {...todo} />;
         })}
-      </ul>
+      </div>
     </div>
   );
 };
