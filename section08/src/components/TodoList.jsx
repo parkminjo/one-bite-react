@@ -32,16 +32,18 @@ const TodoList = ({ todos, onUpdate, onDelete }) => {
         onChange={handleChangeSearch}
       />
       <div className="todo-list-wrapper">
-        {filteredTodos.map((todo) => {
-          return (
-            <TodoItem
-              key={todo.id}
-              {...todo}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
-            />
-          );
-        })}
+        {filteredTodos.length === 0
+          ? '입력한 TODO가 없습니다.'
+          : filteredTodos.map((todo) => {
+              return (
+                <TodoItem
+                  key={todo.id}
+                  {...todo}
+                  onUpdate={onUpdate}
+                  onDelete={onDelete}
+                />
+              );
+            })}
       </div>
     </div>
   );
