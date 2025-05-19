@@ -23,7 +23,7 @@ const App = () => {
     <div className="app">
       <Header />
       <Editor onCreate={addTodo} />
-      <TodoList />
+      <TodoList todos={todos} />
     </div>
   );
 };
