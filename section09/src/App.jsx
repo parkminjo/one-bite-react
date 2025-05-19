@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Editor from './components/Editor';
 import TodoList from './components/TodoList';
 import { useRef, useState } from 'react';
+import Exam from './components/Exam';
 
 const App = () => {
   const [todos, setTodos] = useState(mockData);
@@ -37,9 +38,10 @@ const App = () => {
 
   return (
     <div className="app">
-      <Header />
+      {/* <Header />
       <Editor onCreate={addTodo} />
-      <TodoList todos={todos} onUpdate={updateTodo} onDelete={deleteTodo} />
+      <TodoList todos={todos} onUpdate={updateTodo} onDelete={deleteTodo} /> */}
+      <Exam />
     </div>
   );
 };
