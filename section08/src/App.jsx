@@ -19,11 +19,21 @@ const App = () => {
     setTodos((prev) => [...prev, newTodo]);
   };
 
+  const updateTodo = (targetId) => {
+    // todo State의 값들 중에서
+    // targetId와 일치하는 id를 갖는 Todo item의 isDone을 변경'
+    const updatedTodos = todos.map((todo) =>
+      todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo
+    );
+
+    setTodos(updatedTodos);
+  };
+
   return (
     <div className="app">
       <Header />
       <Editor onCreate={addTodo} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onUpdate={updateTodo} />
     </div>
   );
 };
