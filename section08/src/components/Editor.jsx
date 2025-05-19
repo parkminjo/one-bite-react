@@ -5,7 +5,7 @@ const Editor = ({ onCreate }) => {
   const [content, setContent] = useState('');
   const contentRef = useRef();
 
-  const handleChange = (event) => {
+  const handleChangeContent = (event) => {
     setContent(event.target.value);
   };
 
@@ -31,7 +31,7 @@ const Editor = ({ onCreate }) => {
         type="text"
         placeholder="새로운 TODO를 입력하세요"
         value={content}
-        onChange={handleChange}
+        onChange={handleChangeContent}
         onKeyDown={handleKeydown}
       />
       <button onClick={handleSubmit}>추가</button>
