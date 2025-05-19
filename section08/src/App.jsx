@@ -19,13 +19,19 @@ const App = () => {
     setTodos((prev) => [...prev, newTodo]);
   };
 
+  const deleteTodo = (targetId) => {
+    // todos의 값들 중에서
+    // targetId와 잋리하는 id를 갖는 todo만 삭제한 새로운 배열
+    const filteredTodos = todos.filter((todo) => todo.id !== targetId);
+    setTodos(filteredTodos);
+  };
+
   const updateTodo = (targetId) => {
-    // todo State의 값들 중에서
-    // targetId와 일치하는 id를 갖는 Todo item의 isDone을 변경'
+    // todos의 값들 중에서
+    // targetId와 일치하는 id를 갖는 todo의 isDone을 변경
     const updatedTodos = todos.map((todo) =>
       todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo
     );
-
     setTodos(updatedTodos);
   };
 
@@ -33,7 +39,7 @@ const App = () => {
     <div className="app">
       <Header />
       <Editor onCreate={addTodo} />
-      <TodoList todos={todos} onUpdate={updateTodo} />
+      <TodoList todos={todos} onUpdate={updateTodo} onDelete={deleteTodo} />
     </div>
   );
 };
