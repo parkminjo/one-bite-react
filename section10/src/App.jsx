@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import TodoList from './components/TodoList';
-import { act, useReducer, useRef, useState } from 'react';
+import { act, useCallback, useReducer, useRef, useState } from 'react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -24,7 +24,7 @@ const App = () => {
 
   const idRef = useRef(3);
 
-  const addTodo = (content) => {
+  const addTodo = useCallback((content) => {
     dispatch({
       type: 'CREATE',
       data: {
@@ -34,25 +34,25 @@ const App = () => {
         date: new Date().getTime(),
       },
     });
-  };
+  }, []);
 
-  const deleteTodo = (targetId) => {
-    // todos의 값들 중에서
-    // targetId와 잋리하는 id를 갖는 todo만 삭제한 새로운 배열
-    dispatch({
-      type: 'DELETE',
-      targetId,
-    });
-  };
-
-  const updateTodo = (targetId) => {
+  const updateTodo = useCallback((targetId) => {
     // todos의 값들 중에서
     // targetId와 일치하는 id를 갖는 todo의 isDone을 변경
     dispatch({
       type: 'UPDATE',
       targetId,
     });
-  };
+  }, []);
+
+  const deleteTodo = useCallback((targetId) => {
+    // todos의 값들 중에서
+    // targetId와 잋리하는 id를 갖는 todo만 삭제한 새로운 배열
+    dispatch({
+      type: 'DELETE',
+      targetId,
+    });
+  }, []);
 
   return (
     <div className="app">
