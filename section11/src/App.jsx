@@ -6,6 +6,7 @@ import {
   act,
   createContext,
   useCallback,
+  useMemo,
   useReducer,
   useRef,
   useState,
@@ -26,7 +27,8 @@ const reducer = (state, action) => {
   }
 };
 
-export const TodoContext = createContext();
+export const TodoStateContext = createContext(); // 변할 수 있는 데이터를 공급
+export const TodoDispatchContext = createContext(); // 변하지 않는 데이터를 공급
 
 const App = () => {
   const [todos, dispatch] = useReducer(reducer, mockData);
@@ -63,20 +65,23 @@ const App = () => {
     });
   }, []);
 
+  const memoizedDispatch = useMemo(() => {
+    return {
+      onCreate: addTodo,
+      onUpdate: updateTodo,
+      onDelete: deleteTodo,
+    };
+  }, []);
+
   return (
     <div className="app">
       <Header />
-      <TodoContext.Provider
-        value={{
-          todos,
-          onCreate: addTodo,
-          onUpdate: updateTodo,
-          onDelete: deleteTodo,
-        }}
-      >
-        <Editor />
-        <TodoList />
-      </TodoContext.Provider>
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={memoizedDispatch}>
+          <Editor />
+          <TodoList />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 };
