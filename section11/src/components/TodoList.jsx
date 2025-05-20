@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import TodoItem from './TodoItem';
+import { TodoContext } from '../App';
 import './TodoList.css';
 
-const TodoList = ({ todos, onUpdate, onDelete }) => {
+const TodoList = () => {
+  const { todos } = useContext(TodoContext);
   const [search, setSearch] = useState('');
 
   const handleChangeSearch = (event) => {
@@ -52,14 +54,7 @@ const TodoList = ({ todos, onUpdate, onDelete }) => {
         {filteredTodos.length === 0
           ? '입력한 TODO가 없습니다.'
           : filteredTodos.map((todo) => {
-              return (
-                <TodoItem
-                  key={todo.id}
-                  {...todo}
-                  onUpdate={onUpdate}
-                  onDelete={onDelete}
-                />
-              );
+              return <TodoItem key={todo.id} {...todo} />;
             })}
       </div>
     </div>

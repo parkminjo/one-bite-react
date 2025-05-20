@@ -2,7 +2,14 @@ import './App.css';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import TodoList from './components/TodoList';
-import { act, useCallback, useReducer, useRef, useState } from 'react';
+import {
+  act,
+  createContext,
+  useCallback,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -19,10 +26,12 @@ const reducer = (state, action) => {
   }
 };
 
+export const TodoContext = createContext();
+
 const App = () => {
   const [todos, dispatch] = useReducer(reducer, mockData);
 
-  const idRef = useRef(3);
+  const idRef = useRef(4);
 
   const addTodo = useCallback((content) => {
     dispatch({
@@ -57,8 +66,17 @@ const App = () => {
   return (
     <div className="app">
       <Header />
-      <Editor onCreate={addTodo} />
-      <TodoList todos={todos} onUpdate={updateTodo} onDelete={deleteTodo} />
+      <TodoContext.Provider
+        value={{
+          todos,
+          onCreate: addTodo,
+          onUpdate: updateTodo,
+          onDelete: deleteTodo,
+        }}
+      >
+        <Editor />
+        <TodoList />
+      </TodoContext.Provider>
     </div>
   );
 };
