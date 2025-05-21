@@ -20,6 +20,10 @@ body {
   padding: 0px 20px;
 }
 
-body {
-  font-family: 'NanumPenScript';
+body,
+button,
+input,
+textarea,
+select {
+  font-family: 'NanumPenScript', sans-serif;
 }
