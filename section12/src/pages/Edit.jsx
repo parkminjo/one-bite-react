@@ -1,6 +1,6 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DiaryDispatchContext } from '../App';
+import { DiaryDispatchContext, DiaryStateContext } from '../App';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Editor from '../components/Editor';
@@ -10,6 +10,21 @@ const Edit = () => {
   const navigate = useNavigate();
 
   const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
+  const diaryList = useContext(DiaryStateContext);
+  const [currentDiaryItem, setCurrentDiaryItem] = useState();
+
+  useEffect(() => {
+    const currentDiaryItem = diaryList.find(
+      (diary) => String(diary.diaryId) === String(params.id)
+    );
+
+    if (!currentDiaryItem) {
+      alert('존재하지 않는 일기입니다.');
+      navigate('/', { replace: true });
+    }
+
+    setCurrentDiaryItem(currentDiaryItem);
+  }, [params.id, diaryList]);
 
   const onClickBackButton = () => {
     navigate(-1);
@@ -39,7 +54,7 @@ const Edit = () => {
           />
         }
       />
-      <Editor onSubmit={onSubmit} />
+      <Editor initData={currentDiaryItem} onSubmit={onSubmit} />
     </div>
   );
 };
