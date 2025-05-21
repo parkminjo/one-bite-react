@@ -1,0 +1,31 @@
+.common-button {
+  background-color: rgb(236, 236, 236);
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.common-button:hover {
+  background-color: rgb(209, 209, 209);
+}
+
+.button-positive {
+  background-color: rgb(100, 201, 100);
+  color: white;
+}
+
+.button-positive:hover {
+  background-color: rgb(68, 157, 68);
+}
+
+.button-negative {
+  background-color: rgb(253, 86, 95);
+  color: white;
+}
+
+.button-negative:hover {
+  background-color: rgb(249, 42, 52);
+}
