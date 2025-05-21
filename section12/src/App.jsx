@@ -5,7 +5,7 @@ import New from './pages/New';
 import Diary from './pages/Diary';
 import NotFound from './pages/NotFound';
 import Edit from './pages/Edit';
-import { useReducer } from 'react';
+import { useReducer, useRef } from 'react';
 
 const mockData = [
   {
@@ -23,11 +23,48 @@ const mockData = [
 ];
 
 const reducer = (state, action) => {
-  return state;
+  switch (action.type) {
+    case 'CREATE':
+      return [...state, action.data];
+    case 'UPDATE':
+      return;
+    case 'DELETE':
+      return;
+    default:
+      return state;
+  }
 };
 
 const App = () => {
-  const [diaryData, dipatch] = useReducer(reducer, mockData);
+  const [diaryData, dispatch] = useReducer(reducer, mockData);
+  const idRef = useRef(3);
+
+  // 새로운 일기 추가
+  const onCreate = (createdDate, emotionId, content) => {
+    dispatch({
+      type: 'CREATE',
+      data: {
+        diaryId: idRef.current++,
+        createdDate,
+        emotionId,
+        content,
+      },
+    });
+  };
+
+  // 기존 일기 수정
+  const onUpdate = () => {
+    dispatch({
+      type: 'UPDATE',
+    });
+  };
+
+  // 기존 일기 삭제
+  const onDelete = () => {
+    dispatch({
+      type: 'DELETE',
+    });
+  };
 
   return (
     <Routes>
