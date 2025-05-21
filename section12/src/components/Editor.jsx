@@ -1,32 +1,10 @@
 import './Editor.css';
 import { useEffect, useState } from 'react';
 import { getStringedDate } from '../utils/get-stringed-date';
+import { emotionList } from '../constants/emotion-list';
 import Button from './Button';
 import EmotionItem from './EmotionItem';
 import { useNavigate } from 'react-router-dom';
-
-const EmotionList = [
-  {
-    emotionId: 1,
-    emotionName: '완전 좋음',
-  },
-  {
-    emotionId: 2,
-    emotionName: '좋음',
-  },
-  {
-    emotionId: 3,
-    emotionName: '보통',
-  },
-  {
-    emotionId: 4,
-    emotionName: '나쁨',
-  },
-  {
-    emotionId: 5,
-    emotionName: '완전 나쁨',
-  },
-];
 
 const Editor = ({ initData, onSubmit }) => {
   const navigate = useNavigate();
@@ -80,7 +58,7 @@ const Editor = ({ initData, onSubmit }) => {
       <section className="emotion-section">
         <h4>오늘의 감정</h4>
         <div className="emotion-list-wrapper">
-          {EmotionList.map((emotion) => {
+          {emotionList.map((emotion) => {
             return (
               <EmotionItem
                 key={emotion.emotionId}
