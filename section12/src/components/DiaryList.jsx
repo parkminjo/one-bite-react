@@ -12,6 +12,10 @@ const DiaryList = ({ monthlyDiaryList }) => {
     setSortType(event.target.value);
   };
 
+  const onClickCreateButton = () => {
+    navigate('/new');
+  };
+
   const getSortedData = () => {
     return monthlyDiaryList.toSorted((a, b) => {
       if (sortType === 'oldest') {
@@ -23,10 +27,6 @@ const DiaryList = ({ monthlyDiaryList }) => {
   };
 
   const sortedDiaryList = getSortedData();
-
-  const onClickCreateButton = () => {
-    navigate('/new');
-  };
 
   return (
     <div className="diary-list">
