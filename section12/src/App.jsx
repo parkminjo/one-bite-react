@@ -1,58 +1,77 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import { createContext, useReducer, useRef } from 'react';
+import { createContext, useEffect, useReducer, useRef } from 'react';
 import Home from './pages/Home';
 import New from './pages/New';
 import Diary from './pages/Diary';
 import NotFound from './pages/NotFound';
 import Edit from './pages/Edit';
 
-const mockData = [
-  {
-    diaryId: 1,
-    createdDate: new Date('2025-05-21').getTime(),
-    emotionId: 1,
-    content: '1번 일기 내용',
-  },
-  {
-    diaryId: 2,
-    createdDate: new Date('2025-05-20').getTime(),
-    emotionId: 2,
-    content: '2번 일기 내용',
-  },
-  {
-    diaryId: 3,
-    createdDate: new Date('2025-04-12').getTime(),
-    emotionId: 3,
-    content: '3번 일기 내용',
-  },
-];
-
 const reducer = (state, action) => {
+  let nextState; // 변경된 데이터를 로컬 스토리지에 저정하기 위해 생성함
+
   switch (action.type) {
-    case 'CREATE':
-      return [...state, action.data];
-    case 'UPDATE':
-      return state.map((diary) =>
+    case 'INIT':
+      return action.data;
+    case 'CREATE': {
+      nextState = [...state, action.data];
+      break;
+    }
+    case 'UPDATE': {
+      nextState = state.map((diary) =>
         String(diary.diaryId) === String(action.data.diaryId)
           ? action.data
           : diary
       );
-    case 'DELETE':
-      return state.filter(
+      break;
+    }
+    case 'DELETE': {
+      nextState = state.filter(
         (diary) => String(diary.diaryId) !== String(action.targetId)
       );
+      break;
+    }
     default:
       return state;
   }
+
+  localStorage.setItem('diary', JSON.stringify(nextState));
+  return nextState;
 };
 
 export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 const App = () => {
-  const [diaryList, dispatch] = useReducer(reducer, mockData);
-  const idRef = useRef(3);
+  const [diaryList, dispatch] = useReducer(reducer, []);
+  const idRef = useRef(0);
+
+  useEffect(() => {
+    const storedDiaryList = localStorage.getItem('diary');
+    if (!storedDiaryList) {
+      return;
+    }
+
+    const parsedDiaryList = JSON.parse(storedDiaryList);
+    if (!Array.isArray(parsedDiaryList)) {
+      return;
+    }
+
+    let maxId = 0;
+    parsedDiaryList.forEach((diary) => {
+      console.log(diary.diaryId);
+      if (Number(diary.diaryId) > maxId) {
+        maxId = Number(diary.diaryId);
+      }
+    });
+
+    idRef.current = maxId + 1;
+
+    dispatch({
+      type: 'INIT',
+      data: parsedDiaryList,
+    });
+  }, []);
 
   // 새로운 일기 추가
   const onCreate = (createdDate, emotionId, content) => {
