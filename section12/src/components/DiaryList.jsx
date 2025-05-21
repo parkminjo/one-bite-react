@@ -32,7 +32,7 @@ const DiaryList = ({ monthlyDiaryList }) => {
     <div className="diary-list">
       <div className="menu-bar">
         <select onChange={onChangeSortType}>
-          <option value="latest">최신순</option>
+          <option value="latest">최신 순</option>
           <option value="oldest">오래된 순</option>
         </select>
         <Button
