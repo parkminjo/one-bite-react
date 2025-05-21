@@ -45,11 +45,12 @@ export const DiaryDispatchContext = createContext();
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [diaryList, dispatch] = useReducer(reducer, []);
-  const idRef = useRef(0);
+  const idRef = useRef(1);
 
   useEffect(() => {
     const storedDiaryList = localStorage.getItem('diary');
     if (!storedDiaryList) {
+      setIsLoading(false);
       return;
     }
 

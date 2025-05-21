@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DiaryDispatchContext } from '../App';
 import useDiary from '../hooks/use-diary.jsx';
+import usePageTitle from '../hooks/use-page-title.jsx';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Editor from '../components/Editor';
@@ -12,6 +13,8 @@ const Edit = () => {
 
   const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
   const currentDiaryItem = useDiary(params.id);
+
+  usePageTitle('일기 수정하기');
 
   const onClickBackButton = () => {
     navigate(-1);

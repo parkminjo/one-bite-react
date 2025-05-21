@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import useDiary from '../hooks/use-diary.jsx';
 import { getStringedDate } from '../utils/get-stringed-date';
+import usePageTitle from '../hooks/use-page-title.jsx';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Viewer from '../components/Viewer';
@@ -10,6 +11,7 @@ const Diary = () => {
   const navigate = useNavigate();
 
   const currentDiaryItem = useDiary(params.id);
+  usePageTitle(`${params.id}번 일기`);
 
   const onClickBackButton = () => {
     navigate(-1);
