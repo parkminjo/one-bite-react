@@ -1,5 +1,7 @@
-import Button from './Button';
 import './Editor.css';
+import { useState } from 'react';
+import { getStringedDate } from '../utils/get-stringed-date';
+import Button from './Button';
 import EmotionItem from './EmotionItem';
 
 const EmotionList = [
@@ -25,14 +27,39 @@ const EmotionList = [
   },
 ];
 
-const Editor = () => {
-  const emotionId = 1;
+const Editor = ({ onSubmit }) => {
+  const [input, setInput] = useState({
+    createdDate: new Date(),
+    emotionId: '',
+    content: '',
+  });
+
+  const onChangeInput = (event) => {
+    const { name } = event.target;
+
+    let value = event.target.value;
+
+    if (name === 'createdDate') {
+      value = new Date(value);
+    }
+
+    setInput((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const onClickSubmitButton = () => {
+    onSubmit(input);
+  };
 
   return (
     <div className="editor">
       <section className="date-section">
         <h4>오늘의 날짜</h4>
-        <input type="date" />
+        <input
+          type="date"
+          name="createdDate"
+          value={getStringedDate(input.createdDate)}
+          onChange={onChangeInput}
+        />
       </section>
       <section className="emotion-section">
         <h4>오늘의 감정</h4>
@@ -42,7 +69,15 @@ const Editor = () => {
               <EmotionItem
                 key={emotion.emotionId}
                 {...emotion}
-                isSelected={emotion.emotionId === emotionId}
+                isSelected={emotion.emotionId === input.emotionId}
+                onClick={() =>
+                  onChangeInput({
+                    target: {
+                      name: 'emotionId',
+                      value: emotion.emotionId,
+                    },
+                  })
+                }
               />
             );
           })}
@@ -50,11 +85,20 @@ const Editor = () => {
       </section>
       <section className="content-section">
         <h4>오늘의 일기</h4>
-        <textarea placeholder="오늘은 어땠나요?" />
+        <textarea
+          placeholder="오늘은 어땠나요?"
+          name="content"
+          value={input.content}
+          onChange={onChangeInput}
+        />
       </section>
       <section className="button-section">
         <Button text="취소하기" />
-        <Button text="작성 완료" type="positive" />
+        <Button
+          text="작성 완료"
+          type="positive"
+          onClick={onClickSubmitButton}
+        />
       </section>
     </div>
   );
