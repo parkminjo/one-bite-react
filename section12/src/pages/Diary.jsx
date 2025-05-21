@@ -10,7 +10,6 @@ const Diary = () => {
   const navigate = useNavigate();
 
   const currentDiaryItem = useDiary(params.id);
-  console.log(currentDiaryItem);
 
   const onClickBackButton = () => {
     navigate(-1);
