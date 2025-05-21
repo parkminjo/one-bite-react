@@ -33,7 +33,9 @@ const reducer = (state, action) => {
           : diary
       );
     case 'DELETE':
-      return;
+      return state.filter(
+        (diary) => String(diary.diaryId) !== String(action.targetId)
+      );
     default:
       return state;
   }
@@ -70,9 +72,10 @@ const App = () => {
   };
 
   // 기존 일기 삭제
-  const onDelete = () => {
+  const onDelete = (targetId) => {
     dispatch({
       type: 'DELETE',
+      targetId,
     });
   };
 
@@ -80,10 +83,10 @@ const App = () => {
     <>
       <button
         onClick={() => {
-          onUpdate(1, new Date().getTime(), 3, '수정됐어요');
+          onDelete(1);
         }}
       >
-        수정 테스트
+        삭제 테스트
       </button>
       <Routes>
         <Route path="/" element={<Home />} />
