@@ -10,15 +10,21 @@ import Edit from './pages/Edit';
 const mockData = [
   {
     diaryId: 1,
-    createdDate: new Date().getTime(),
+    createdDate: new Date('2025-05-21').getTime(),
     emotionId: 1,
     content: '1번 일기 내용',
   },
   {
     diaryId: 2,
-    createdDate: new Date().getTime(),
+    createdDate: new Date('2025-05-20').getTime(),
     emotionId: 2,
     content: '2번 일기 내용',
+  },
+  {
+    diaryId: 3,
+    createdDate: new Date('2025-04-12').getTime(),
+    emotionId: 3,
+    content: '3번 일기 내용',
   },
 ];
 
