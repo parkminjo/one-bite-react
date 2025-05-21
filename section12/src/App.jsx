@@ -17,7 +17,7 @@ const mockData = [
   {
     diaryId: 2,
     createdDate: new Date().getTime(),
-    emotionId: 1,
+    emotionId: 2,
     content: '2번 일기 내용',
   },
 ];
@@ -41,11 +41,11 @@ const reducer = (state, action) => {
   }
 };
 
-const DiaryStateContext = createContext();
-const DiaryDispatchContext = createContext();
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 const App = () => {
-  const [diaryData, dispatch] = useReducer(reducer, mockData);
+  const [diaryList, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
   // 새로운 일기 추가
@@ -83,7 +83,7 @@ const App = () => {
   };
 
   return (
-    <DiaryStateContext.Provider value={diaryData}>
+    <DiaryStateContext.Provider value={diaryList}>
       <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
         <Routes>
           <Route path="/" element={<Home />} />
