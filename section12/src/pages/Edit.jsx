@@ -24,7 +24,7 @@ const Edit = () => {
     }
 
     setCurrentDiaryItem(currentDiaryItem);
-  }, [params.id, diaryList]);
+  }, [params.id]);
 
   const onClickBackButton = () => {
     navigate(-1);
