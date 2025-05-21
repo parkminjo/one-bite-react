@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DiaryDispatchContext } from '../App';
-import useDiary from '../hooks/use-diary';
+import useDiary from '../hooks/use-diary.jsx';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Editor from '../components/Editor';

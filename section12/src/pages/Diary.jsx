@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import useDiary from '../hooks/use-diary';
+import useDiary from '../hooks/use-diary.jsx';
 import { getStringedDate } from '../utils/get-stringed-date';
 import Header from '../components/Header';
 import Button from '../components/Button';

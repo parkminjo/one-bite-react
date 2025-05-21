@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import { createContext, useEffect, useReducer, useRef } from 'react';
+import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import Home from './pages/Home';
 import New from './pages/New';
 import Diary from './pages/Diary';
@@ -43,6 +43,7 @@ export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [diaryList, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
 
@@ -54,12 +55,12 @@ const App = () => {
 
     const parsedDiaryList = JSON.parse(storedDiaryList);
     if (!Array.isArray(parsedDiaryList)) {
+      setIsLoading(false);
       return;
     }
 
     let maxId = 0;
     parsedDiaryList.forEach((diary) => {
-      console.log(diary.diaryId);
       if (Number(diary.diaryId) > maxId) {
         maxId = Number(diary.diaryId);
       }
@@ -71,6 +72,8 @@ const App = () => {
       type: 'INIT',
       data: parsedDiaryList,
     });
+
+    setIsLoading(false);
   }, []);
 
   // 새로운 일기 추가
@@ -106,6 +109,10 @@ const App = () => {
       targetId,
     });
   };
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <DiaryStateContext.Provider value={diaryList}>
