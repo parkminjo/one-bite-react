@@ -1,11 +1,11 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+import { createContext, useReducer, useRef } from 'react';
 import Home from './pages/Home';
 import New from './pages/New';
 import Diary from './pages/Diary';
 import NotFound from './pages/NotFound';
 import Edit from './pages/Edit';
-import { useReducer, useRef } from 'react';
 
 const mockData = [
   {
@@ -40,6 +40,9 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
+const DiaryStateContext = createContext();
+const DiaryDispatchContext = createContext();
 
 const App = () => {
   const [diaryData, dispatch] = useReducer(reducer, mockData);
@@ -80,22 +83,17 @@ const App = () => {
   };
 
   return (
-    <>
-      <button
-        onClick={() => {
-          onDelete(1);
-        }}
-      >
-        삭제 테스트
-      </button>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/diary/:id" element={<Diary />} />
-        <Route path="/edit/:id" element={<Edit />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </>
+    <DiaryStateContext.Provider value={diaryData}>
+      <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/new" element={<New />} />
+          <Route path="/diary/:id" element={<Diary />} />
+          <Route path="/edit/:id" element={<Edit />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>
   );
 };
 
