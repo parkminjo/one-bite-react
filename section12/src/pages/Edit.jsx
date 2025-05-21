@@ -16,7 +16,10 @@ const Edit = () => {
   };
 
   const onClickDeleteButton = () => {
-    onDelete(params.id);
+    if (window.confirm('정말로 삭제하시겠습니까? 다시 복구되지 않습니다.')) {
+      onDelete(params.id);
+      navigate('/', { replace: true });
+    }
   };
 
   const onSubmit = () => {
