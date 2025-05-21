@@ -37,8 +37,16 @@ const Edit = () => {
     }
   };
 
-  const onSubmit = () => {
-    onUpdate();
+  const onSubmit = (input) => {
+    if (window.confirm('정말로 수정하시겠습니까?')) {
+      onUpdate(
+        params.id,
+        input.createdDate.getTime(),
+        input.emotionId,
+        input.content
+      );
+      navigate('/', { replace: true });
+    }
   };
 
   return (
