@@ -27,7 +27,11 @@ const reducer = (state, action) => {
     case 'CREATE':
       return [...state, action.data];
     case 'UPDATE':
-      return;
+      return state.map((diary) =>
+        String(diary.diaryId) === String(action.data.diaryId)
+          ? action.data
+          : diary
+      );
     case 'DELETE':
       return;
     default:
@@ -53,9 +57,15 @@ const App = () => {
   };
 
   // 기존 일기 수정
-  const onUpdate = () => {
+  const onUpdate = (diaryId, createdDate, emotionId, content) => {
     dispatch({
       type: 'UPDATE',
+      data: {
+        diaryId,
+        createdDate,
+        emotionId,
+        content,
+      },
     });
   };
 
@@ -67,13 +77,22 @@ const App = () => {
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/new" element={<New />} />
-      <Route path="/diary/:id" element={<Diary />} />
-      <Route path="/edit/:id" element={<Edit />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <button
+        onClick={() => {
+          onUpdate(1, new Date().getTime(), 3, '수정됐어요');
+        }}
+      >
+        수정 테스트
+      </button>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new" element={<New />} />
+        <Route path="/diary/:id" element={<Diary />} />
+        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 
