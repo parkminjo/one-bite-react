@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DiaryDispatchContext, DiaryStateContext } from '../App';
+import { DiaryDispatchContext } from '../App';
+import useDiary from '../hooks/use-diary';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Editor from '../components/Editor';
@@ -10,21 +11,7 @@ const Edit = () => {
   const navigate = useNavigate();
 
   const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
-  const diaryList = useContext(DiaryStateContext);
-  const [currentDiaryItem, setCurrentDiaryItem] = useState();
-
-  useEffect(() => {
-    const currentDiaryItem = diaryList.find(
-      (diary) => String(diary.diaryId) === String(params.id)
-    );
-
-    if (!currentDiaryItem) {
-      alert('존재하지 않는 일기입니다.');
-      navigate('/', { replace: true });
-    }
-
-    setCurrentDiaryItem(currentDiaryItem);
-  }, [params.id]);
+  const currentDiaryItem = useDiary(params.id);
 
   const onClickBackButton = () => {
     navigate(-1);

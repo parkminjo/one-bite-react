@@ -1,15 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import useDiary from '../hooks/use-diary';
+import { getStringedDate } from '../utils/get-stringed-date';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { useContext } from 'react';
-import { DiaryStateContext } from '../App';
 import Viewer from '../components/Viewer';
 
 const Diary = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const diaryList = useContext(DiaryStateContext);
+  const currentDiaryItem = useDiary(params.id);
+  console.log(currentDiaryItem);
 
   const onClickBackButton = () => {
     navigate(-1);
@@ -19,14 +20,20 @@ const Diary = () => {
     navigate(`/edit/${params.id}`);
   };
 
+  if (!currentDiaryItem) {
+    return <div>로딩 중...</div>;
+  }
+
+  const title = getStringedDate(new Date(currentDiaryItem.createdDate));
+
   return (
     <div>
       <Header
-        title={`날짜 기록`}
+        title={`${title} 기록`}
         leftChild={<Button text="< 뒤로가기" onClick={onClickBackButton} />}
         rightChild={<Button text="수정하기" onClick={onClickUpdateButton} />}
       />
-      <Viewer />
+      <Viewer currentDiaryItem={currentDiaryItem} />
     </div>
   );
 };
