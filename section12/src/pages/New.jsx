@@ -15,6 +15,7 @@ const New = () => {
 
   const onSubmit = (input) => {
     onCreate(input.createdDate.getTime(), input.emotionId, input.content);
+    navigate('/', { replace: true }); // 메인홈으로 이동함과 동시에 뒤로가기를 막아줌
   };
 
   return (
