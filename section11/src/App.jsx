@@ -8,7 +8,7 @@ import { TodoStateContext } from './context/TodoStateContext';
 import { reducer } from './reducer/reducer';
 
 const App = () => {
-  const [todos, dispatch] = useReducer(reducer, mockData);
+  const [todos, dispatch] = useReducer(reducer, []);
 
   const idRef = useRef(4);
 
@@ -64,25 +64,3 @@ const App = () => {
 };
 
 export default App;
-
-// TodoList 데이터 모델링
-const mockData = [
-  {
-    id: 0,
-    isDone: false,
-    content: 'React 공부하기',
-    date: new Date().getTime(),
-  },
-  {
-    id: 2,
-    isDone: false,
-    content: 'Next.js 공부하기',
-    date: new Date().getTime(),
-  },
-  {
-    id: 3,
-    isDone: false,
-    content: 'Computer Science 공부하기',
-    date: new Date().getTime(),
-  },
-];
