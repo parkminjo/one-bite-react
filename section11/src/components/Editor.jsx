@@ -24,7 +24,6 @@ const Editor = () => {
   };
 
   const handleKeydown = (event) => {
-    console.log(event);
     if (
       !event.nativeEvent.isComposing &&
       (event.key === 'Enter' || event.keyCode === 13)
