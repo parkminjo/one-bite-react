@@ -24,7 +24,9 @@ const Editor = () => {
   };
 
   const handleKeydown = (event) => {
-    if (event.code === 'Enter') handleSubmit();
+    if (event.keyCode === 13) {
+      handleSubmit();
+    }
   };
 
   return (
