@@ -1,16 +1,10 @@
 import './App.css';
+import { createContext, useCallback, useMemo, useReducer, useRef } from 'react';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import TodoList from './components/TodoList';
-import {
-  act,
-  createContext,
-  useCallback,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
-} from 'react';
+import { TodoDispatchContext } from './context/TodoDispatchContext';
+import { TodoStateContext } from './context/TodoStateContext';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,9 +20,6 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
-export const TodoStateContext = createContext(); // 변할 수 있는 데이터를 공급
-export const TodoDispatchContext = createContext(); // 변하지 않는 데이터를 공급
 
 const App = () => {
   const [todos, dispatch] = useReducer(reducer, mockData);

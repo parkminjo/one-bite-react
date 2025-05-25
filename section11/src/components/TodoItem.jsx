@@ -1,6 +1,6 @@
-import { memo, useContext } from 'react';
-import { TodoDispatchContext } from '../App';
 import './TodoItem.css';
+import { memo, useContext } from 'react';
+import { TodoDispatchContext } from '../context/TodoDispatchContext';
 
 const TodoItem = ({ id, content, date, isDone }) => {
   const { onUpdate, onDelete } = useContext(TodoDispatchContext);
